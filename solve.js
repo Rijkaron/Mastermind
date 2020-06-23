@@ -14,7 +14,7 @@ const generateCode = () => {
     const code = [];
     while (code.length < CODE_LENGTH) {
         const tempColors = [...COLORS].filter(color => !code.includes(color) || ALLOW_REPETITION);
-        code.push(tempColors[~~(Math.random() * tempColors.length)]);
+        code.push(tempColors[Math.floor(Math.random() * tempColors.length)]);
     }
     return code;
 }
@@ -35,7 +35,7 @@ const testCode = (input, comparison = code) => {
         }
         // Count colors in the wrong position
         const index = comparison.indexOf(input[i]);
-        if (!!~index && done[index] !== true) {
+        if (index !== -1 && done[index] !== true) {
             wrongPositions++;
             done[index] = true;
             continue;
@@ -50,7 +50,7 @@ const getAllPosibilities = () => {
     const permutate = offset => {
         const permutations = [];
         for (let i = 0; i < CODE_LENGTH; i++) {
-            const index = ~~((offset / COLORS.length ** i) % COLORS.length);
+            const index = Math.floor((offset / COLORS.length ** i) % COLORS.length);
             permutations[i] = COLORS[index];
         }
         return permutations;
@@ -69,7 +69,7 @@ const shuffle = array => {
     // Duplicate array so it doesn't change the original array
     const a = [...array];
     for (let i = a.length - 1; i > 0; i--) {
-        const r = ~~(Math.random() * (i + 1));
+        const r = Math.floor(Math.random() * (i + 1));
         [a[i], a[r]] = [a[r], a[i]];
     }
     return a;
@@ -79,8 +79,8 @@ const shuffle = array => {
 const getBeginMoves = () => {
     const shuffledColors = shuffle(COLORS);
 
-    const lengthOfColors = ~~(CODE_LENGTH / 2);
-    const codes = [...Array(~~(COLORS.length / 2))].map((a, i) => {
+    const lengthOfColors = Math.floor(CODE_LENGTH / 2);
+    const codes = [...Array(Math.floor(COLORS.length / 2))].map((a, i) => {
         return shuffle([...Array(CODE_LENGTH)].map((b, j) => {
             if (j < lengthOfColors) return shuffledColors[i * 2];
             else return shuffledColors[i * 2 + 1];
