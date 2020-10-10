@@ -9,7 +9,7 @@ const ALLOW_REPETITION = true;
 if (!ALLOW_REPETITION && CODE_LENGTH > COLORS.length)
     console.exception(`CODE_LENGTH (${CODE_LENGTH}) is too short for the amount of COLORS (${COLORS.length}) without allowing repetition.`);
 
-// Generate a random code
+// Generates a random code
 const generateCode = () => {
     const code = [];
     while (code.length < CODE_LENGTH) {
@@ -21,7 +21,7 @@ const generateCode = () => {
 
 let code = generateCode();
 
-// Compares 2 codes and return the feedback in [correctPositions, wrongPositions]
+// Compare 2 codes and return the feedback in [correctPositions, wrongPositions]
 const testCode = (input, comparison = code) => {
     if (input.length !== comparison.length) return false;
     let correctPositions = 0, wrongPositions = 0, done = [];
@@ -61,12 +61,12 @@ const getAllPosibilities = () => {
         posibilities[i] = permutate(i);
     }
 
-    // Return only the codes without repetitions if repetition isn't allowed
+    // Returns only the codes without repetitions if repetition isn't allowed
     return posibilities.filter(code => new Set(code).size === code.length || ALLOW_REPETITION);
 }
 
 const shuffle = array => {
-    // Duplicate array so it doesn't change the original array
+    // Duplicates array so it doesn't change the original array
     const a = [...array];
     for (let i = a.length - 1; i > 0; i--) {
         const r = Math.floor(Math.random() * (i + 1));
@@ -75,7 +75,7 @@ const shuffle = array => {
     return a;
 }
 
-// Get the begin moves
+// Gets the begin moves
 const getBeginMoves = () => {
     const shuffledColors = shuffle(COLORS);
 
@@ -100,7 +100,7 @@ const solve = () => {
 
     let foundColors = 0;
 
-    // Try the begin moves
+    // Tries the begin moves
     for (let i = 0; i < beginMoves.length; i++) {
         const move = beginMoves[i];
 
@@ -146,7 +146,7 @@ const solve = () => {
 
     const guess = doneMoves[tries - 1].move;
 
-    // Return solving data
+    // Returns solving data
     return {
         solved: guess.toString() == code,
         guess: guess,
@@ -155,7 +155,7 @@ const solve = () => {
     }
 }
 
-// Calculate the average stats of this algorithm
+// Calculates the average stats of this algorithm
 const avarageStats = () => {
     const posibilities = getAllPosibilities();
 
