@@ -21,7 +21,7 @@ const generateCode = () => {
 
 let code = generateCode();
 
-// Compare 2 codes and return the feedback in [correctPositions, wrongPositions]
+// Compares 2 codes and return the feedback in [correctPositions, wrongPositions]
 const testCode = (input, comparison = code) => {
     if (input.length !== comparison.length) return false;
     let correctPositions = 0, wrongPositions = 0, done = [];
